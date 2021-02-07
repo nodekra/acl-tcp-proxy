@@ -1,0 +1,10 @@
+version: '2.4'
+
+services:
+
+  acl-tcp-proxy:
+    image: nodekra/acl-tcp-proxy:${ACL_TCP_PROXY_IMAGE_TAG}
+    build:
+      context: .
+      args:
+        - NGINX_BASE_IMAGE

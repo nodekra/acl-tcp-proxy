@@ -1,0 +1,20 @@
+version: '2.4'
+
+services:
+  zookeeper:
+    image: zookeeper
+
+  postgres:
+    image: postgis:9.6
+    environment:
+        POSTGRES_USERS: "user:password|api:apipassword"
+        POSTGRES_DATABASES: "user:user|api:api"
+
+  acl-tcp-proxy:
+    image: nodekra/acl-tcp-proxy:latest
+    environment: 
+        UPSTREAM_LIST: "5432:postgres|2181:zookeeper"
+        ALLOW_LIST: "192.168.0.0/16|0.0.0.0/0"
+    ports:
+        - 5432:5432
+        - 2181:2181
